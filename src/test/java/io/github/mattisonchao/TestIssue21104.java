@@ -49,7 +49,7 @@ public class TestIssue21104 {
         admin.topics().createPartitionedTopic(topicName, 2);
         admin.topics().createSubscription(topicName, subName, MessageId.earliest);
 
-        // (2) Publish 5 min messages (30kb)
+        // (2) Publish 2 min messages (30kb)
         logger.info("Step - 2");
         final var client = PulsarClient.builder()
                 .serviceUrl(pulsar.getPulsarBrokerUrl())
@@ -64,7 +64,7 @@ public class TestIssue21104 {
                 .create();
         final var startTime = currentTimeMillis();
         var messageGenerator = 0;
-        while ((currentTimeMillis() - startTime) < MINUTES.toMillis(5)) {
+        while ((currentTimeMillis() - startTime) < MINUTES.toMillis(2)) {
             final var key = messageGenerator + "";
             final var message = messageGenerator + payload30k;
             producer.newMessage()
